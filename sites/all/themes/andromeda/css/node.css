@@ -1,0 +1,72 @@
+/**
+ * @file
+ * Specific node styling
+ */
+
+.node{
+  margin: 0px 0 65px;
+  position:relative;
+}
+
+.node h2 {
+  font-size:20px;
+  color:#000;
+  margin:0 0 10px;
+  line-height:20px;
+}
+
+.node .submitted {
+  color: #000;
+  padding: 5px 0;
+}
+
+
+
+.node ul.links {
+  margin:0;
+  padding:0;
+  display:block;
+}
+
+.node ul.links li {
+  list-style:none outside none;
+  margin:0 10px 0 0;
+  padding:0;
+}
+
+.node ul.links li a {
+  color:#828282;
+}
+
+/**
+ * Blog
+ */
+.node-blog h2.node-title{
+  background: none repeat scroll 0 0 #FFFFFF;
+  margin: 0;
+  padding: 20px 20px 0;
+}
+
+.node-blog-has-picture h2.node-title{
+  padding: 15px 20px 0;
+}
+
+.node-blog .content{
+  padding:10px 20px;
+  background:#FFFFFF;
+}
+
+.node-blog .field-type-image{
+  overflow:hidden;
+  width:600px;
+  height:300px;
+}
+
+.node-blog .field-type-image .field-label{
+  display:none;
+}
+
+.node-blog ul.links {
+  padding:10px 20px 20px;
+  background:#FFFFFF;
+}

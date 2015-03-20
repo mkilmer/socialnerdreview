@@ -1,0 +1,81 @@
+/**
+ * @file
+ * Main styling
+ */
+
+#site-name span {
+    color: #cc0000;
+}
+
+#slideshow {
+    position: relative;
+}
+
+.slide {
+    max-height: 400px;
+    display: block;
+}
+
+.slide img {
+    max-width: 940px;
+    max-height: 400px;
+}
+
+.slide .text-container {
+    background: rgba(0,0,0, 0.5);
+    position: absolute;
+    bottom:0;
+    left: 0;
+    color: #fff;
+    padding: 2%;
+    width: 96%;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+
+.breadcrumb {
+    margin: 10px 0;
+}
+
+.front .node {
+    width: 48%;
+    float: left;
+    margin-right: 2%;
+}
+
+.front .node img {
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+    height: auto;
+}
+
+.podcast-wrapper {
+    clear: both;
+    border-bottom: 1px solid #000;
+    position: relative;
+    padding-bottom: 30px;
+    display: block;
+}
+
+.podcast-wrapper a {
+    display: block;
+    position: relative;
+}
+
+.podcast-wrapper a:hover h3 {
+    text-decoration: underline;
+}
+
+.podcast-wrapper a:hover {
+    color: #000!important;
+}
+
+.podcast-wrapper img {
+    float: left;
+    margin-right: 30px;
+    display: block;
+    max-width: 200px;
+    height: auto;
+    border: 5px solid #fff;
+    box-shadow: 1px 1px 10px #333;
+}

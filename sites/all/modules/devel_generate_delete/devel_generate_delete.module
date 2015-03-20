@@ -1,0 +1,249 @@
+<?php
+
+// The number of nodes that when deleted trigger a batch action.
+$GLOBALS['devel_generate_delete_batch_nodes'] = 10;
+// The number of users that when deleted trigger a batch action
+$GLOBALS['devel_generate_delete_batch_users'] = 10; 
+
+function devel_generate_insert($type, $eid){
+  if(!empty($type) && !empty($eid)) {
+    $query = db_insert('devel_generate_delete')
+              ->fields(array(
+                'eid' => $eid,
+                'type' => $type,
+              ))->execute();
+  }
+}
+
+/*
+ * Log all nodes created by devel generate.
+ */
+
+function devel_generate_delete_node_insert($node) {
+  // Only perform on nodes created by devel.
+  if (!empty($node->devel_generate)) {     
+    devel_generate_insert('node', $node->nid);
+  }
+}
+
+/*
+ * Log all users created by devel generate.
+ */
+
+function devel_generate_delete_user_insert(&$edit, $account, $category) {
+  if (isset($edit['devel_generate'])) {
+    devel_generate_insert('user', $account->uid);
+  }
+}
+
+/*
+ * Alter the devel-form to allow us to delete nodes created by devel.
+ */
+
+function devel_generate_delete_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id === 'devel_generate_content_form' || $form_id === 'devel_generate_users_form') {
+    // Add weights to all fields
+    $i = 1;
+    foreach ($form as $key => $field) {
+      if ($key[0] != '#') {
+        $form[$key]['#weight'] = $i;
+        if ($key == 'kill_content' || $key == 'kill_users') {
+          $deleteWeight = $i + 1;   // Weight the 'kill_generated' needs to be
+          $i = $i + 2;
+        }
+        else {
+          $i++;
+        }
+      }
+    }
+    /*
+     * Determine the title of the checkbox based on the form id
+     */
+    switch ($form_id) {
+      case('devel_generate_content_form'):
+        $title = '<strong>Delete all previously generated content</strong> before generating new content.';
+        break;
+      case('devel_generate_users_form'):
+        $title = '<strong>Delete all previously generated users</strong> before generating new users.';
+        break;
+    }
+
+    // Add a checkbox to delete all generated content
+
+    $form['kill_generated'] = array(
+      '#type' => 'checkbox',
+      '#title' => t($title),
+      '#default_value' => FALSE,
+      '#weight' => $deleteWeight
+    );
+    array_unshift($form['#submit'], 'devel_generate_delete_form_submit');
+  }
+}
+
+/*
+ * Delete all generated nodes if the checkbox is checked
+ */
+
+function devel_generate_delete_form_submit($form_id, &$form_state) {
+  if (isset($form_state['input']['kill_generated'])) {
+    if ($form_id['#form_id'] === 'devel_generate_content_form') {
+      $nids = db_select('devel_generate_delete')->condition('type', 'node', '=');
+      $nodes = db_select('devel_generate_delete', 'id')->condition('type', 'node', '=')->countQuery()->execute()->fetchField();
+
+      // IF MORE THAN N NODES NEED TO BE DELETED, RUN A BATCH
+
+      if ($nodes > $GLOBALS['devel_generate_delete_batch_nodes']) {
+        batch_set(devel_generate_delete_batch());
+      }
+      else {
+        foreach ($nids as $node) {
+          node_delete($node->nid);   // Delete the nodes
+          db_delete('devel_generate_delete')->condition('eid', $node->eid)->condition('type', 'node', '=')->execute();  // Empty the log of nodes created by devel    
+        }
+      }
+    }
+    else if ($form_id['#form_id'] === 'devel_generate_users_form') {
+      // delete generated users
+      $users = db_query("select * from devel_generate_delete where 'type' = 'user' ");
+      $users_amount = db_select('devel_generate_delete', 'id')->condition('type', 'user', '=')->countQuery()->execute()->fetchField();
+
+      if ($users_amount > $GLOBALS['devel_generate_delete_batch_users']) {
+
+        /*
+         * IF MORE THAN N-USERS NEED TO BE DELETED, RUN A BATCH ACTION
+         */
+        batch_set(devel_generate_delete_users_batch());
+      }
+      else {
+        /*
+         * Delete the users without batch
+         */
+        foreach ($users as $user) {
+          user_delete($user->eid);
+          db_delete('devel_generate_delete')->condition('type', 'user', '=')->condition('eid', $user->eid, '=')->execute();
+        }
+      }
+    }
+  }
+}
+
+/*
+ * Batch function to remove nodes
+ */
+
+function devel_generate_delete_batch() {
+  $operations = array();
+  $operations[] = array('devel_generate_delete_batch_op', array());
+  $batch = array(
+    'operations' => $operations,
+    'finished' => 'devel_generate_delete_batch_finished'
+  );
+
+  return $batch;
+}
+
+/*
+ * Batch finished function.
+ */
+
+function devel_generate_delete_batch_finished($success, $results, $operations) {
+  if ($success) {
+    drupal_set_message('Content has been deleted via batch.');
+  }
+  else {
+    drupal_set_message('An error ocurred in the batch action.');
+  }
+}
+
+/*
+ * Batch operation deleting the content.
+ */
+
+function devel_generate_delete_batch_op(&$context) {
+  if (empty($context['sandbox'])) {
+    $context['sandbox'] = array();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = db_select('devel_generate_delete', 'id')->condition('type', 'node', '=')->countQuery()->execute()->fetchField(); // Number of nodes that need to be deleted
+    //$context['sandbox']['nids'] = db_select('devel_generate_delete')->condition('type', 'node', '=')->execute()->fetchAll();
+    $context['sandbox']['nids'] = db_query("select * from devel_generate_delete where type = 'node'")->fetchAll();
+    $context['sandbox']['currentnode'] = 0;
+  }
+  $limit = 10;
+  $i = 0;
+  while ($i < $limit && $context['sandbox']['progress'] < $context['sandbox']['max']) {
+    node_delete($context['sandbox']['nids'][$context['sandbox']['currentnode']]->eid);
+    db_delete('devel_generate_delete')->condition('eid', $context['sandbox']['nids'][$context['sandbox']['currentnode']]->eid)->condition('type', 'node', '=')->execute();
+    $context['sandbox']['currentnode'] ++;
+    $context['sandbox']['progress'] ++;
+    $context['message'] = t('Deleted @progress/@max nodes.', array('@progress' => $context['sandbox']['progress'], '@max nodes' => $context['sandbox']['max']));
+    $i++;
+  }
+
+  if ($context['sandbox']['progress'] >= $context['sandbox']['max']) {
+    $context['finished'] = TRUE;
+  }
+  else {
+    $context['finished'] = FALSE;
+  }
+}
+
+/*
+ * Batch to delete users.  
+ * 
+ */
+
+function devel_generate_delete_users_batch() {
+  $operations = array();
+  $operations[] = array('devel_generate_delete_users_batch_op', array());
+  $batch = array(
+    'operations' => $operations,
+    'finished' => 'devel_generate_delete_users_batch_finished'
+  );
+
+  return $batch;
+}
+
+/*
+ * Batch finished function.
+ */
+
+function devel_generate_delete_users_batch_finished($success, $results, $operations) {
+  if ($success) {
+    drupal_set_message('Users have been deleted via batch');
+  }
+  else {
+    drupal_set_message('Batch action failed');
+  }
+}
+
+/*
+ * Batch operation deleting the users.
+ */
+
+function devel_generate_delete_users_batch_op(&$context) {
+  if (empty($context['sandbox'])) {
+    $context['sandbox'] = array();
+    $context['sandbox']['progress_users'] = 0;
+    $context['sandbox']['max_users'] = db_select('devel_generate_delete', 'id')->condition('type', 'user', '=')->countQuery()->execute()->fetchField(); // Number of users that need to be deleted
+    // $context['sandbox']['users'] = db_select('devel_generate_delete', 'eid')->condition('type', 'user', '=')->execute()->fetchAssoc();
+    $context['sandbox']['users'] = db_query("select * from devel_generate_delete where type = 'user'")->fetchAll();
+    $context['sandbox']['currentuser'] = 0;
+  }
+  $limit = 10;
+  $i = 0;
+  while ($i < $limit && $context['sandbox']['progress_users'] < $context['sandbox']['max_users']) {
+    user_delete($context['sandbox']['users'][$context['sandbox']['currentuser']]->eid);
+    db_delete('devel_generate_delete')->condition('eid', $context['sandbox']['users'][$context['sandbox']['currentuser']]->eid)->condition('type', 'user', '=')->execute();
+    $context['sandbox']['currentuser'] ++;
+    $context['sandbox']['progress_users'] ++;
+    $context['message'] = t('Deleted @progress/@max users.', array('@progress' => $context['sandbox']['progress_users'], '@max users' => $context['sandbox']['max_users']));
+    $i++;
+  }
+
+  if ($context['sandbox']['progress_users'] >= $context['sandbox']['max_users']) {
+    $context['finished'] = true;
+  }
+  else {
+    $context['finished'] = false;
+  }
+}
