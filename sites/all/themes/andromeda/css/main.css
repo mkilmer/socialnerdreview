@@ -3,6 +3,10 @@
  * Main styling
  */
 
+ .in-maintenance #logo {
+    display:none;
+ }
+
 #site-name span {
     color: #cc0000;
 }
