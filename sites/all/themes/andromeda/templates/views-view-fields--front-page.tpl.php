@@ -26,6 +26,7 @@
 
         // dpm($row);
 
+        $nid = $row->nid;
         $description = $fields['body']->content;
         $title = $fields['title']->content;
         $img = '/sites/default/files/field/image/' . $row->field_field_image[0]['raw']['filename'];
@@ -33,9 +34,10 @@
     ?>
 
     <div class="col">
-        <img src="<?php echo $img; ?>">
+        <a href="/node/<?php print $nid ?>">
+            <img src="<?php echo $img; ?>">
+        </a>
         <?php echo $title . '<br>' . $description ?>
-
     </div>
 
 

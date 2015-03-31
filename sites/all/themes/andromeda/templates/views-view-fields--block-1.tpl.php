@@ -37,7 +37,6 @@
         <div class="wrapper">
             <div class="column">
                 <h2><?php echo $title . '</h2><br>' . $description ?>
-<!--                 <a href="<?php echo $download; ?>" target="_blank" class="download-btn">Download Podcast</a> -->
             </div>
             <div class="column">
                 <?php echo $embed; ?>
