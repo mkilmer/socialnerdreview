@@ -133,7 +133,12 @@ body.with-slideshow #header{
   padding-bottom: 50px;
   position: relative;
   width: 940px;
-  height:400px;
+  height:529px;
+}
+
+.not-front #slideshow {
+    height: 330px;
+    background: transparent;
 }
 
 #slideshow h2.block-title {

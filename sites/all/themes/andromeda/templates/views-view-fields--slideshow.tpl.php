@@ -24,14 +24,17 @@
  * @ingroup views_templates
  */
 
+        // dpm($fields);
+        $type = $row->field_field_type[0]['raw']['value'];
 
-        $title = strip_tags($fields['title']->content);
         $description = $fields['body']->content;
-        $image = $fields['field_slide_image']->content;
-        $link = strip_tags($fields['field_link']->content);
+        $title = $fields['title']->content;
+        $slide = '/sites/default/files/' . $row->field_field_slideshow_image[0]['raw']['filename'];
 
-        echo "<a class='slide' href='" . $link . "'>" . $image;
-        echo "<div class='text-container'><h2>" . $title . "</h2>". $description . "</div></a>";
+        echo "<div class='slide'> <img src='" . $slide . "' >";
+        echo "<div class='text-container'><h2>" . $title . "</h2>". $description . "</div></div>";
+
+
     ?>
 
 
