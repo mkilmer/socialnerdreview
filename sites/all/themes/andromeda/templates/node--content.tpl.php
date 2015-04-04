@@ -16,7 +16,6 @@
             $output = '<div class="videoWrapper">' .  $video . '</div>' . $body;
             break;
         case 'review':
-            echo 'This is a review type dawg';
             $output = $body;
             break;
         case 'podcast':
