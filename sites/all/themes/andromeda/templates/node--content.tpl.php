@@ -1,29 +1,36 @@
 <?php
+    dpm($content);
+
+    $type = $content['field_type']['#items'][0]['value'];
+
+    $comments = render($content['comments']);
+    $body = $content['body']['#items'][0]['value'];
+    $image =  '/sites/default/files/field/image/' .  $content['field_image']['#items'][0]['filename'];
+    $video = $content['field_video_embed']['#items'][0]['value'];
+    $output = '';
 
 
-        // dpm($content);
+    switch ($type){
+        case 'video':
+            $output = '<div class="videoWrapper">' .  $video . '</div>' . $body;
+            break;
+        case 'review':
+            echo 'This is a review type dawg';
+            $output = $body;
 
-        $type = $content['field_type']['#items'][0]['value'];
+            break;
+        case 'podcast':
+            $output = $body;
+            break;
+        case 'article':
+            $output = $body;
+            break;
+    }
 
-        $image =  '/sites/default/files/field/image/' .  $content['field_image']['#items'][0]['filename'];
 
-
-        switch ($type){
-            case 'video':
-                echo 'This is a video type dawg';
-                break;
-            case 'review':
-                echo 'This is a review type dawg';
-                break;
-            case 'podcast':
-                echo 'This is a podcast type dawg';
-                break;
-            case 'article':
-                echo 'This is a article type dawg';
-                break;
-        }
-
-    ?>
+    echo $submitted;
+    echo $output;
+    echo $comments;
 
 
 
