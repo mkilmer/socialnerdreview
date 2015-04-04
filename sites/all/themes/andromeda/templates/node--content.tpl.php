@@ -1,5 +1,5 @@
 <?php
-    dpm($content);
+    // dpm($content);
 
     $type = $content['field_type']['#items'][0]['value'];
 
