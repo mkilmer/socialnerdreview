@@ -2,6 +2,7 @@
     // dpm($content);
 
     $type = $content['field_type']['#items'][0]['value'];
+    $user = user_load($node->uid);
 
     $comments = render($content['comments']);
     $body = $content['body']['#items'][0]['value'];
@@ -27,7 +28,9 @@
     }
 
 
-    echo $submitted;
+    if ($submitted) {
+         echo "<div class='submitted'><i>Posted: " . date( "F j, Y",$node->created) . ' by <span style="color: #cc0000">' . $user->name . '</span></i></div>';
+    }
     echo $output;
     echo $comments;
 

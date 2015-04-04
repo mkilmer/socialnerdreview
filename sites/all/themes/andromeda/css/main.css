@@ -143,6 +143,7 @@
     padding-top: 25px;
     height: 0;
     margin-bottom: 20px;
+    box-shadow: 1px 1px 10px #333;
 }
 .videoWrapper iframe {
     position: absolute;
@@ -150,4 +151,10 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.submitted {
+    margin: 10px 0;
+    position: relative;
+    display: block;
 }
