@@ -19,7 +19,9 @@ body.toolbar-drawer {
   background-position: center 65px !important;
 }
 
-a {
+a,
+a:visited,
+a:active {
     color: #cc0000;
     text-decoration: none;
 }
