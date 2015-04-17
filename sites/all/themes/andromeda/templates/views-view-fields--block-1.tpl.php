@@ -38,7 +38,7 @@
             <div class="column">
                 <h2><?php echo $title . '</h2><br>' . $description ?>
             </div>
-            <div class="column">
+            <div class="column video">
                 <?php echo $embed; ?>
             </div>
         </div>

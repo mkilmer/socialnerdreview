@@ -89,7 +89,7 @@
     float: left;
     margin-right: 30px;
     display: block;
-    max-width: 200px;
+    max-width: 300px;
     height: auto;
     border: 5px solid #fff;
     box-shadow: 1px 1px 10px #333;
@@ -100,6 +100,10 @@
     /*background: url('../images/bg-pattern-t.gif') repeat-x center top #F5F5F5;*/
     position: relative;
     display: block;
+}
+
+.featured-top .column.video {
+    padding: 0;
 }
 
 .featured-top .column {
@@ -124,6 +128,7 @@
     padding: 10px;
     color: #fff!important;
     margin: 15px 0;
+    max-width: 300px;
 }
 
 .download-btn:hover {
@@ -131,9 +136,9 @@
 }
 
 .column iframe {
-    max-width: 430px;
+    max-width: 470px;
     width: 100%;
-    height: 255px;
+    height: 300px;
     max-height: 430px;
 }
 
@@ -157,4 +162,17 @@
     margin: 10px 0;
     position: relative;
     display: block;
+}
+
+.submitted a {
+    color: #cc0000;
+}
+
+.bodyImage {
+    float: left;
+    max-width: 350px;
+    margin: 0 20px 20px 0;
+    display: block;
+    background: #ffffff;
+    box-shadow: 1px 1px 10px #333;
 }
