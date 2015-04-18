@@ -24,7 +24,7 @@
  * @ingroup views_templates
  */
 
-        dpm($row);
+        // dpm($row);
 
         $description = $fields['body']->content;
         $title = $fields['title']->content;
