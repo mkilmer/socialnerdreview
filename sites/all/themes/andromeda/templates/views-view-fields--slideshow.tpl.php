@@ -28,6 +28,12 @@
         $type = $row->field_field_type[0]['raw']['value'];
 
         $description = $fields['body']->content;
+
+        if (strlen($description) > 150 ){
+            $description = substr($description, 0, 150);
+            $description = $description . '...';
+        }
+
         $title = $fields['title']->content;
         $slide = '/sites/default/files/' . $row->field_field_slideshow_image[0]['raw']['filename'];
 

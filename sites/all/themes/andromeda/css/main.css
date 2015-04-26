@@ -44,7 +44,8 @@
     margin: 10px 0;
 }
 
-.front .col {
+.front .col,
+.news .col {
     width:33%;
     padding: 15px;
     box-sizing: border-box;

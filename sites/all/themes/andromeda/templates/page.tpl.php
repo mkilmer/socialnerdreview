@@ -58,7 +58,7 @@
   </div> <!-- /.section -->
 </div> <!-- /#header -->
 
-<div id="page-wrapper"><div id="page">
+<div id="page-wrapper" class="clearfix"><div id="page">
   <?php if($page['slideshow']) : ?>
     <div id="slideshow">
       <?php print drupal_render($page['slideshow']);; ?>

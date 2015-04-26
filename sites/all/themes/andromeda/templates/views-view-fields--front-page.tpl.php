@@ -28,6 +28,12 @@
 
         $nid = $row->nid;
         $description = $fields['body']->content;
+
+        if (strlen($description) > 100 ){
+            $description = substr($description, 0, 100);
+            $description = $description . '...';
+        }
+
         $title = $fields['title']->content;
         $img = '/sites/default/files/field/image/' . $row->field_field_image[0]['raw']['filename'];
 
