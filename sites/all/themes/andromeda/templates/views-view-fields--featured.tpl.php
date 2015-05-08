@@ -24,11 +24,11 @@
  * @ingroup views_templates
  */
 
-        // dpm($row);
+        dpm($row);
 
         $description = $fields['body']->content;
         $title = $fields['title']->content;
-        $img = '/sites/default/files/field/image/' . $row->field_field_image[0]['raw']['filename'];
+        $img = '/sites/default/files/' . $row->field_field_thumbnail[0]['raw']['filename'];
         $download = $row->field_field_podcast_upload[0]['rendered']['#markup'];
 
     ?>
