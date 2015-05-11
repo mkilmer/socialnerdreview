@@ -212,7 +212,14 @@
  *   );
  * @endcode
  */
-$databases = array();
+$databases['default']['default'] = array(
+      'driver' => 'mysql',
+      'database' => 'socialnerdreview',
+      'username' => 'root',
+      'password' => 'root',
+      'host' => 'localhost',
+      'prefix' => ''
+    );
 
 /**
  * Access control for update.php script.
