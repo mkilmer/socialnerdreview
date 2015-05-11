@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+
+<channel>
+
+<title>Running in Circles</title>
+
+<link>http://www.socialnerdreview.com/ric/episode-01</link>
+
+<language>en-us</language>
+
+<copyright>&#x2117; &amp; &#xA9; 2015 socialnerdreview.com</copyright>
+
+<itunes:subtitle>A show about video games</itunes:subtitle>
+
+<itunes:author>socialnerdreview.com</itunes:author>
+
+<itunes:summary>Social Nerd Review is a podcast that talks about the latest video games, board games, and their respective industries.</itunes:summary>
+
+<description>Social Nerd Review is a podcast that talks about the latest video games, board games, and their respective industries.</description>
+
+<itunes:owner>
+
+<itunes:name>socialnerdreview.com</itunes:name>
+
+<itunes:email>mrmikekilmer@gmail.com</itunes:email>
+
+</itunes:owner>
+
+<itunes:image href="http://www.socialnerdreview.com/sites/all/themes/andromeda/images/podcast-logo.jpg" />
+
+<itunes:category text="Games &amp; Hobbies">
+
+<itunes:category text="Video Games"/>
+
+</itunes:category>
+
+<item>
+
+<title></title>
+
+<itunes:author>Running in Circles</itunes:author>
+
+<itunes:subtitle>Episode 01</itunes:subtitle>
+
+<itunes:summary><![CDATA[Come and hang out with Mike, Todd, Ryan, and Kenny as we discuss: Snoop Dogg, Affordable Space Adventures, Bloodborne, Heroes of the Storm, League of Legends, Axiom Verge, AC China, Dragon Age: Inqusition, and Ori and The Blind Forest.]]</itunes:summary>
+
+<itunes:image href="http://www.socialnerdreview.com/sites/default/files/podcast-1-full.jpg" />
+
+<enclosure url="http://www.socialnerdreview.com/sites/default/files/podcasts/ric-01.mp3" length="8727310" type="audio/mpeg" />
+
+<guid>http://www.socialnerdreview.com/sites/default/files/podcasts/ric-01.mp3</guid>
+
+<pubDate>Mon, 11 May 2015 19:00:00 GMT</pubDate>
+
+<itunes:duration>1:13</itunes:duration>
+
+</item>
+
+</channel>
+
+</rss>
+
