@@ -137,7 +137,7 @@ body.with-slideshow #header{
   padding-bottom: 50px;
   position: relative;
   width: 940px;
-  /*height:529px;*/
+  height:529px;
 }
 
 .not-front #slideshow {
