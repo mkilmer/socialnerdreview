@@ -24,26 +24,22 @@
  * @ingroup views_templates
  */
 
-        dpm($row);
+        // dpm();
 
         $description = $fields['body']->content;
         $title = $fields['title']->content;
         $img = '/sites/default/files/' . $row->field_field_thumbnail[0]['raw']['filename'];
-        $download = $row->field_field_podcast_upload[0]['rendered']['#markup'];
-
+        $soundcloud = $row->field_field_soundcloud_link[0]['raw']['value'];
     ?>
 
     <div class="featured-top clearfix">
         <div class="wrapper">
             <div class="column">
                 <h2><?php echo $title . '</h2><br>' . $description ?>
-                <a href="<?php echo $download; ?>" target="_blank" class="download-btn">Download Podcast</a>
+                <a href="<?php echo $soundcloud; ?>" target="_blank" class="download-btn">Get Podcast</a>
             </div>
             <div class="column">
                 <img src="<?php echo $img; ?>">
             </div>
         </div>
     </div>
-
-
-

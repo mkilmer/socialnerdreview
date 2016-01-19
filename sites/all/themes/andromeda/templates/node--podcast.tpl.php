@@ -1,5 +1,5 @@
 <?php
-    // dpm($content);
+    //dpm($content);
 
     $type = $content['field_type']['#items'][0]['value'];
     $user = user_load($node->uid);
@@ -22,7 +22,7 @@
         case 'review':
             $output = $submittedOutput . $body;
             break;
-        case 'Podcast':
+        case 'podcast':
             $output = '<div class="podcast-wrapper clearfix"><img class="bodyImage" src="' . $image . '">';
             $output .= $submittedOutput . $body . $upload .'</div>';
             break;
@@ -35,3 +35,8 @@
 
     echo $output;
     //echo $comments;
+
+
+
+
+

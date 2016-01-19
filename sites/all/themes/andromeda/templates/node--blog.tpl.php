@@ -17,7 +17,7 @@
       <?php print $submitted; ?>
     </div>
   <?php endif; ?>
-  
+
   <?php print render($content['field_blog_picture']); ?>
 
   <?php print render($title_prefix); ?>
