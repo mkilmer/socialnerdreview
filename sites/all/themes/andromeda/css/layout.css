@@ -9,7 +9,7 @@ body{
   color: #363636;
   font-family: Arial,Tahoma,Verdana;
   font-size: 16px;
-  background:url('../images/bg-not-front.gif') repeat-x center top #F5F5F5;
+  background:url('../images/bg-not-xfront.gif') repeat-x center top #F5F5F5;
 }
 
 body.with-slideshow {
@@ -130,13 +130,13 @@ body.with-slideshow #header{
  * Banner
  */
 #slideshow {
-  background: url("../images/shadow.png") no-repeat scroll center bottom transparent;
+  /*background: url("../images/shadow.png") no-repeat scroll center bottom transparent;*/
   margin: 0 auto;
   overflow: hidden;
   padding-bottom: 50px;
   position: relative;
   width: 940px;
-  height:529px;
+  /*height:529px;*/
 }
 
 .not-front #slideshow {
