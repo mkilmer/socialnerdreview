@@ -3,7 +3,7 @@ description = A slick Drupal 7 theme with grid support.
 core = 7.x
 
 stylesheets[all][] = css/reset.css
-stylesheets[all][] = css/layout.css
+stylesheets[all][] = css/_layout.css
 stylesheets[all][] = css/structure.css
 stylesheets[all][] = css/node.css
 stylesheets[all][] = css/menu.css
@@ -28,4 +28,3 @@ version = "7.x-2.x-dev"
 core = "7.x"
 project = "andromeda"
 datestamp = "1380553838"
-
