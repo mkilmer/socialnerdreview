@@ -13,8 +13,8 @@ body{
 }
 
 body.with-slideshow {
-  /*background:url('../images/bg-pattern-t.gif') repeat-x center top #F5F5F5;*/
-  background:url('../images/bg-not-front.gif') repeat-x center top #F5F5F5;
+  background:url('../images/bg-pattern-t.gif') repeat-x center top #F5F5F5;
+
 
 }
 
@@ -37,6 +37,7 @@ a:hover {
  */
 #header{
   margin-bottom:30px;
+  background: url('../images/bg-pattern-t.gif') repeat-x center top #F5F5F5;
 }
 
 body.with-slideshow #header{
